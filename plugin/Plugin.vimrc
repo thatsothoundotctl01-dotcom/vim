@@ -216,4 +216,4 @@ function! CompileAndRun()
   endif
 endfunction
 
-autocmd FileType c,cpp nnoremap <buffer> <F6> :call CompileAndRun()<CR>
+autocmd FileType c,cpp nnoremap <buffer> <F6> :call CompileAndRun()<CR>#Update Problem of plugin
