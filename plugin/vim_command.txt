@@ -171,4 +171,4 @@ repo as `VIM_COMMANDS.md`.
 - Record a macro (`qa...q`) for any repetitive edit you'll do more
   than twice, then run it with a count: `10@a`.
 - Use `Ctrl+p` (fuzzy find, this config) instead of `:e` + tab-completing
-  a path by hand.
+  a path by hand.#doc support
