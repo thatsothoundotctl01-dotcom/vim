@@ -1,0 +1,173 @@
+Git & GitHub
+From Basics to Advanced — Command Reference & Explanations
+
+
+
+
+1. Git Basics (Review)
+These are the everyday commands you already know. Included here for completeness and quick reference.
+1.1 Setup
+git init
+Initializes a new, empty Git repository in the current folder. Creates a hidden .git directory that stores all history and metadata.
+git clone <url>
+Copies an existing remote repository (e.g. from GitHub) to your local machine, including its full history.
+git config --global user.name "Name"
+Sets your identity for commits. Use --global to apply to all repos on your machine, or omit it to set per-repo.
+1.2 Everyday Workflow
+git status
+Shows which files are staged, unstaged, or untracked. The command you run constantly to orient yourself.
+git add <file>
+Stages changes — moves them from your working directory into the 'staging area', ready to be committed. Use git add . to stage everything.
+git commit -m "message"
+Saves the staged changes as a new snapshot (commit) in your project's history, with a message describing the change.
+git push
+Uploads your local commits to the remote repository (e.g. GitHub).
+git pull
+Downloads new commits from the remote and merges them into your current branch (this is git fetch + git merge combined).
+git branch <name>
+Creates a new branch — an independent line of development.
+git checkout <branch>  /  git switch <branch>
+Switches your working directory to another branch. git switch is the newer, clearer command for this.
+git merge <branch>
+Combines the history of another branch into your current branch.
+
+
+2. Intermediate Concepts
+2.1 Rebase vs. Merge
+Both combine changes from one branch into another, but they produce different history shapes.
+git merge feature-branch
+Creates a new 'merge commit' that ties the two histories together. Nothing is rewritten — safe for shared/public branches. The history shows the branch structure explicitly (can look messy with many branches).
+git rebase main
+Replays your current branch's commits one by one on top of main's latest commit, producing a straight, linear history. It rewrites commit hashes, so never rebase a branch other people are also using.
+•	Rule of thumb: rebase your own local/feature branches; merge when combining into a shared branch like main.
+2.2 Interactive Rebase
+git rebase -i HEAD~5
+Opens an editor listing your last 5 commits, letting you rewrite history before pushing:
+•	pick — keep the commit as-is
+•	reword — keep the change, edit the commit message
+•	squash (or 'fixup') — merge this commit into the previous one
+•	drop — delete the commit entirely
+•	edit — pause here to amend the commit's contents
+Common use: tidying up a messy series of 'wip' commits into one clean commit before opening a pull request.
+2.3 Stashing
+git stash
+Temporarily shelves uncommitted changes so you can switch branches with a clean working directory, without committing half-finished work.
+git stash pop
+Re-applies the most recent stash and removes it from the stash list.
+git stash list
+Shows all stashed change sets (you can have multiple).
+2.4 Cherry-Pick
+git cherry-pick <commit-hash>
+Applies one specific commit from another branch onto your current branch, without merging the whole branch. Useful for backporting a bug fix to a release branch.
+2.5 Resolving Merge Conflicts
+A conflict happens when Git can't automatically decide how to combine two changes to the same lines. Git marks the file with conflict markers:
+<<<<<<< HEAD
+your version
+=======
+their version
+>>>>>>> branch-name
+Edit the file to keep the correct content, remove the markers, then stage and commit:
+git add <file>
+git commit
+Marks the conflict as resolved and completes the merge/rebase.
+2.6 .gitignore
+A .gitignore file lists patterns for files Git should never track (e.g. node_modules/, .env, *.log). If a file is already tracked, adding it to .gitignore alone won't stop tracking it:
+git rm --cached <file>
+Removes a file from Git's tracking while keeping it on disk — pair this with adding it to .gitignore.
+2.7 Tags
+git tag v1.0.0
+Marks a specific commit as a named release point (lightweight tag).
+git tag -a v1.0.0 -m "Release 1.0"
+Creates an annotated tag with a message, author, and date — recommended for real releases.
+git push --tags
+Pushes tags to the remote (tags are not pushed by default).
+2.8 Remote Branch Management
+git fetch --prune
+Downloads new commits/branches from the remote and removes local references to remote branches that no longer exist.
+git branch -vv
+Shows local branches along with which remote branch each one is tracking.
+
+
+3. Advanced Concepts
+3.1 Reflog — Your Safety Net
+git reflog
+Shows a log of every place HEAD has pointed to, including commits 'lost' after a reset, rebase, or deleted branch. Since Git rarely deletes data immediately, you can almost always recover:
+•	Find the commit hash in the reflog, then run git reset --hard <hash> or git checkout <hash> to recover it.
+3.2 Bisect — Finding a Bug's Origin
+git bisect start
+git bisect bad
+git bisect good <old-commit>
+Starts a binary search across your commit history. Git checks out a commit halfway between 'good' and 'bad' and asks you to test it and mark it good or bad again. It repeats until it isolates the exact commit that introduced the bug — O(log n) instead of checking every commit.
+git bisect run <test-script>
+Automates the process entirely by running a script (that exits 0 for good, non-zero for bad) at each step.
+3.3 Submodules
+git submodule add <url> path/
+Embeds another Git repository inside yours at a fixed commit — useful for shared libraries that live in their own repo.
+Submodules are powerful but add friction (contributors must remember to init/update them). Many teams prefer a monorepo instead when the dependency changes frequently.
+3.4 Rewriting History (Removing Secrets / Large Files)
+If a secret or large file was committed and pushed, removing it in a new commit isn't enough — it still exists in history. You need to rewrite history:
+git filter-repo --path <file> --invert-paths
+Rewrites all commits to remove a file entirely from history. This is the modern, recommended replacement for the older, slower git filter-branch.
+•	After rewriting, all commit hashes change — every collaborator must re-clone.
+•	Always rotate/revoke a leaked secret even after removing it from history.
+3.5 Hooks
+Hooks are scripts Git runs automatically at certain points, stored in .git/hooks/. Common ones:
+•	pre-commit — run linters/tests before allowing a commit
+•	commit-msg — enforce a commit message format
+•	pre-push — run a full test suite before code leaves your machine
+Tools like Husky (for Node projects) make hooks easy to share across a team via the repo itself.
+3.6 Worktrees
+git worktree add ../hotfix main
+Checks out another branch into a separate folder on disk, from the same repository — letting you work on two branches simultaneously without stashing or switching, and without cloning the repo twice.
+
+
+4. GitHub-Specific Concepts
+4.1 Pull Request Workflows
+•	Draft PRs — open a pull request marked 'draft' to share work-in-progress without triggering review requests.
+•	Requested reviewers — explicitly assign teammates to review a PR.
+•	Required status checks — configure GitHub to block merging until CI tests pass.
+•	Squash & merge / Rebase & merge / Merge commit — three different ways GitHub can combine a PR into the base branch, each producing a different history shape.
+4.2 Branch Protection Rules
+Settings on a repository that enforce quality gates on important branches (like main), for example:
+•	Require pull request reviews before merging
+•	Require status checks (CI) to pass before merging
+•	Require branches to be up to date before merging
+•	Prevent force-pushes or deletion of the protected branch
+4.3 GitHub Actions (CI/CD)
+GitHub Actions runs automated workflows defined in YAML files under .github/workflows/, triggered by events like a push or pull request.
+name: CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm install
+      - run: npm test
+This example checks out the code, installs dependencies, and runs tests automatically on every push or pull request.
+4.4 Forking vs. Shared-Repo Workflow
+•	Shared-repo workflow — all contributors have write access to one repository and push branches directly to it (common inside a company).
+•	Forking workflow — contributors copy (fork) the repository to their own account, push changes there, then open a pull request back to the original repo (common for open source, where contributors don't have write access).
+4.5 CODEOWNERS
+A CODEOWNERS file (in the repo root, docs/, or .github/) maps file paths to people or teams, so GitHub automatically requests their review whenever a PR touches those paths:
+/src/api/  @backend-team
+*.md       @docs-team
+4.6 GitHub CLI (gh)
+gh pr create
+Creates a pull request from the terminal without opening a browser.
+gh pr checkout 123
+Checks out pull request #123 locally so you can review or test it.
+gh issue list
+Lists issues for the current repository directly from the command line.
+
+
+5. Quick Reference Table
+Command	Purpose
+git rebase -i	Edit/squash/reorder past commits
+git stash	Shelve changes temporarily
+git cherry-pick	Copy one commit to another branch
+git reflog	Recover lost commits
+git bisect	Binary-search for a bug's origin commit
+git worktree	Multiple branches checked out at once
+git filter-repo	Permanently remove data from history
+gh pr create	Open a pull request from the CLI

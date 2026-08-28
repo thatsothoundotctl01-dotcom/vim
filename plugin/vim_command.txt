@@ -1,8 +1,8 @@
 # Vim Command Reference & Optimization Guide
 
 A support document for getting fast with Vim — built-in commands plus
-the custom shortcuts provided by this VSCode Vim configuration. Keep it
-in this project as `README.md`.
+the custom shortcuts from this `.vimrc`. Keep it next to your config
+repo as `VIM_COMMANDS.md`.
 
 ## Table of contents
 
@@ -41,7 +41,7 @@ in this project as `README.md`.
 | `Leader n f` | Create a new file |
 | `Leader n d` | Create a new folder |
 | `Leader h` | Open Vim's built-in `:help` (type a command/option after it) |
-| `Leader ?` | Open this cheat sheet (`vim-config-plugin/README.md` — update the mapping if you move this file) |
+| `Leader ?` | Open this cheat sheet (`~/.vim/VIM_COMMANDS.md` — place this file there for the shortcut to work) |
 | `jj` | Escape insert mode |
 
 ---
@@ -59,7 +59,7 @@ in this project as `README.md`.
 | `%` | Jump to matching `()`/`{}`/`[]` |
 | `{` / `}` | Previous / next paragraph |
 | `Ctrl+d` / `Ctrl+u` | Half page down / up |
-| `Ctrl+f` / `Ctrl+b` | Full page down / up *(check this config: `Ctrl+f` is also mapped to project search; use `Page Down`/`Page Up` for paging)* |
+| `Ctrl+f` / `Ctrl+b` | Full page down / up *(remapped to fuzzy search in this config — use `Page Down`/`Page Up` instead)* |
 | `f{char}` / `t{char}` | Jump to / just before next `{char}` on the line |
 | `;` / `,` | Repeat last `f`/`t` forward / backward |
 
@@ -81,7 +81,7 @@ in this project as `README.md`.
 | `u` / `Ctrl+r` | Undo / redo |
 | `.` | Repeat last change |
 | `dt{char}` | Delete up to (not including) `{char}` |
-| `di(` / `da(` | Delete inside / around `()`; use `dib`/`dab` for parentheses. Similar text objects include `di"`, `di'`, `di{`, and `dit` for tags when supported by the filetype/config |
+| `di(` / `da(` | Delete inside / around `()` (works with `"`, `'`, `{`, `[`, tags via vim-surround) |
 
 ## Search & replace
 
@@ -91,7 +91,7 @@ in this project as `README.md`.
 | `?pattern` | Search backward |
 | `n` / `N` | Repeat search forward / backward |
 | `*` / `#` | Search word under cursor forward / backward |
-| `:%s/old/new/g` | Replace all `old` with `new` on every line in the file |
+| `:%s/old/new/g` | Replace all `old` with `new` in file |
 | `:%s/old/new/gc` | Same, but confirm each replacement |
 | `:s/old/new/g` | Replace all on current line only |
 
@@ -126,7 +126,7 @@ in this project as `README.md`.
 | `` `a `` | Jump to mark `a` (exact position) |
 | `'a` | Jump to mark `a` (start of line) |
 | `Ctrl+o` / `Ctrl+i` | Back / forward through jump list |
-| `` `` `` | Jump to the position before the last jump |
+| `` `` ` `` | Jump to position before last jump |
 
 ## Windows, splits & buffers
 
@@ -153,12 +153,12 @@ in this project as `README.md`.
 
 | Command | Action |
 |---|---|
-| `:w !sudo tee %` | Write through `sudo` when you lack permission *(then reload with `:e` if needed)* |
+| `:w !sudo tee %` | Save a file you opened without permission |
 | `:e!` | Reload file, discarding unsaved changes |
-| `:earlier 5m` | Move the undo state to roughly 5 minutes ago |
-| `:later 5m` | Move forward through the undo history |
+| `:earlier 5m` | Revert buffer to how it looked 5 minutes ago |
+| `:later 5m` | Undo the above |
 | `:set ft?` | Show the current filetype |
-| `!!ls` (normal mode; same as `:.!ls`) | Replace the current line with shell command output |
+| `!!ls` (in normal mode via `:.!ls`) | Insert shell command output into buffer |
 
 ## Speed habits worth building
 
@@ -172,16 +172,3 @@ in this project as `README.md`.
   than twice, then run it with a count: `10@a`.
 - Use `Ctrl+p` (fuzzy find, this config) instead of `:e` + tab-completing
   a path by hand.
-
-### Important configuration notes
-
-- This guide mixes built-in Vim commands with plugin mappings. Verify the
-  mappings in `settings.json` or `keybindings.json`; a mapping can override
-  a standard Vim command, as `Ctrl+f` does here.
-- `Leader` means the key configured as `mapleader` (shown as `Space` above),
-  so `Leader n f` means `Space`, then `n`, then `f`.
-- Plugin-dependent entries such as NERDTree, fuzzy finding, Git, undo tree,
-  commenting, and multi-cursor require their corresponding extensions or
-  plugins to be installed.
-- `:w !sudo tee %` may print the written file in the command area and can
-  leave the buffer marked modified; use `:e` or `:checktime` after saving.

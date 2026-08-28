@@ -1,0 +1,90 @@
+====================================================
+ Vim-Plugin- : Supported Commands & Settings
+====================================================
+
+Introduction
+------------
+This file lists all the custom keybindings, Vim settings,
+and editor configurations supported by this setup. It is
+based on the project's plugin.json manifest and serves as a
+quick reference for you (or contributors) to understand the
+available shortcuts and features without digging through the
+full config.
+
+Source File               : plugin.json
+
+----------------------------------------------------
+1. GENERAL EDITOR SETTINGS
+----------------------------------------------------
+Theme                     : Light+
+Smooth Scrolling          : Enabled (editor, workbench list, terminal)
+Cursor Animation          : Smooth caret animation + smooth blinking
+Auto Save                 : After delay (500ms)
+Minimap                   : Disabled
+Word Wrap                 : Enabled
+Font                      : JetBrains Mono (fallback: Fira Code, Consolas)
+Font Size                 : 15 (editor), 14 (terminal)
+Line Height               : 24
+Bracket Pair Colorization : Enabled
+Bracket Pair Guides       : Enabled
+Linked Editing            : Enabled
+Startup Editor            : None (blank start)
+Preview Mode              : Disabled (files open in full tabs)
+Telemetry                 : Off
+Auto Updates              : Disabled
+
+----------------------------------------------------
+2. GITHUB COPILOT
+----------------------------------------------------
+Copilot Suggestions       : Disabled globally
+Next Edit Suggestions     : Disabled
+Disabled for              : plaintext, markdown, scminput, cpp
+
+----------------------------------------------------
+3. VIM MODE SETTINGS
+----------------------------------------------------
+Leader Key                : <space>
+Search Highlight (hlsearch)   : Enabled
+Incremental Search (incsearch): Enabled
+System Clipboard           : Enabled (yank/paste synced with OS clipboard)
+Ctrl Keys                  : Enabled
+Key Timeout                : 300ms
+EasyMotion                 : Enabled
+Sneak Motion                : Enabled
+Surround Plugin Behavior   : Enabled
+Smart Relative Line Numbers: Enabled
+Start In Insert Mode       : Disabled (starts in Normal mode)
+Fold Fix                   : Enabled
+
+----------------------------------------------------
+4. INSERT MODE KEYBINDINGS
+----------------------------------------------------
+  j j          -->  <Esc>   (Exit insert mode quickly)
+
+----------------------------------------------------
+5. NORMAL MODE KEYBINDINGS
+----------------------------------------------------
+  <leader> w   -->  :w              (Save file)
+  <leader> q   -->  :q              (Quit file)
+  Ctrl + h     -->  :wincmd h       (Move to left split window)
+  Ctrl + l     -->  :wincmd l       (Move to right split window)
+  Ctrl + j     -->  :wincmd j       (Move to bottom split window)
+  Ctrl + k     -->  :wincmd k       (Move to top split window)
+
+----------------------------------------------------
+6. TERMINAL SETTINGS
+----------------------------------------------------
+Font                      : JetBrains Mono
+Font Size                 : 14
+Cursor Style               : Line
+Cursor Blinking            : Enabled
+Default Shell (Linux)      : bash
+
+----------------------------------------------------
+7. C/C++ COMPILE & RUN
+----------------------------------------------------
+Skip If Already Compiled  : Disabled (always recompiles)
+
+====================================================
+ End of Supported Commands List
+====================================================
