@@ -1,110 +1,146 @@
-" Vim color file
-" Maintainer:	Hans Fugal <hans@fugal.net>
-" Last Change:	$Date: 2003/07/24 00:57:11 $
-" Last Change:	$Date: 2003/07/24 00:57:11 $
-" URL:		http://hans.fugal.net/vim/colors/desert.vim
-" Version:	$Id: desert.vim,v 1.7 2003/07/24 00:57:11 fugalh Exp $
-
-" cool help screens
-" :he group-name
-" :he highlight-groups
-" :he cterm-colors
+" Vim/Neovim color file
+" Original:   desert.vim by Hans Fugal <hans@fugal.net> (2003)
+" Upgrade:    true-color (guifg/guibg + matching cterm), Neovim Treesitter,
+"             LSP semantic tokens, Diagnostics, Pmenu/CursorLine/StatusLine
+"             and other groups that didn't exist in the 2003 original.
+" Notes:      Palette intentionally kept close to the original desert look
+"             (grey20 background, khaki/indianred/skyblue accents).
 
 set background=dark
+
 if version > 580
-    " no guarantees for version 5.8 and below, but this makes it stop
-    " complaining
-    hi clear
-    if exists("syntax_on")
-	syntax reset
-    endif
+  hi clear
+  if exists("syntax_on")
+    syntax reset
+  endif
 endif
-let g:colors_name="desert"
 
-hi Normal	guifg=White guibg=grey20
+let g:colors_name = "desert"
 
-" highlight groups
-hi Cursor	guibg=indianred guifg=khaki
-"hi CursorIM
-"hi Directory
-"hi DiffAdd
-"hi DiffChange
-"hi DiffDelete
-"hi DiffText
-"hi ErrorMsg
-hi VertSplit	guibg=#c2bfa5 guifg=grey50 gui=none
-hi Folded	guibg=grey30 guifg=gold
-hi FoldColumn	guibg=grey30 guifg=tan
-hi IncSearch	guifg=slategrey guibg=khaki
-"hi LineNr
-hi ModeMsg	guifg=goldenrod
-hi MoreMsg	guifg=SeaGreen
-hi NonText	guifg=LightBlue guibg=grey30
-hi Question	guifg=springgreen
-hi Search	guibg=grey30 guifg=#dfffdf
-hi SpecialKey	guifg=yellowgreen
-hi StatusLine	guibg=#c2bfa5 guifg=black gui=none
-hi StatusLineNC	guibg=#c2bfa5 guifg=grey50 gui=none
-hi Title	guifg=indianred
-hi Visual	gui=none guifg=khaki guibg=olivedrab
-"hi VisualNOS
-hi WarningMsg	guifg=salmon
-"hi WildMenu
-"hi Menu
-"hi Scrollbar
-"hi Tooltip
-hi MatchParen guibg=grey30 guifg=#dfffdf
+" Enable true color when the terminal supports it (safe no-op otherwise)
+if has('termguicolors')
+  set termguicolors
+endif
 
-" syntax highlighting groups
-hi Comment	guifg=SkyBlue
-hi Constant	guifg=#ffa0a0
-hi Identifier	guifg=palegreen
-hi Statement	guifg=khaki
-hi PreProc	guifg=indianred
-hi Type		guifg=darkkhaki
-hi Special	guifg=navajowhite
-"hi Underlined
-hi Ignore	guifg=grey40
-"hi Error
-hi Todo		guifg=orangered guibg=yellow2
+" ---------------------------------------------------------------------------
+" Core editor groups
+" ---------------------------------------------------------------------------
+hi Normal       guifg=White      guibg=grey20    ctermfg=White   ctermbg=232
+hi Cursor       guibg=indianred  guifg=khaki
+hi CursorLine   guibg=grey25                     cterm=NONE      ctermbg=235
+hi CursorColumn guibg=grey25                     cterm=NONE      ctermbg=235
+hi ColorColumn  guibg=grey25                                     ctermbg=235
+hi LineNr       guifg=grey50     guibg=grey20    ctermfg=244
+hi CursorLineNr guifg=khaki      guibg=grey25    gui=bold  ctermfg=222  cterm=bold
+hi VertSplit    guibg=#c2bfa5    guifg=grey50    gui=none  ctermfg=250  cterm=reverse
+hi Folded       guibg=grey30     guifg=gold      ctermfg=220  ctermbg=NONE
+hi FoldColumn   guibg=grey30     guifg=tan       ctermfg=180  ctermbg=NONE
+hi IncSearch    guifg=slategrey  guibg=khaki     ctermfg=yellow  ctermbg=green
+hi ModeMsg      guifg=goldenrod                  ctermfg=136
+hi MoreMsg      guifg=SeaGreen                   ctermfg=2
+hi NonText      guifg=LightBlue  guibg=grey30    cterm=bold  ctermfg=blue
+hi Question     guifg=springgreen                ctermfg=2
+hi Search       guibg=grey30     guifg=#dfffdf   ctermfg=grey  ctermbg=blue
+hi SpecialKey   guifg=yellowgreen                ctermfg=darkgreen
+hi StatusLine   guibg=#c2bfa5    guifg=black     gui=none  cterm=bold,reverse
+hi StatusLineNC guibg=#c2bfa5    guifg=grey50    gui=none  cterm=reverse
+hi Title        guifg=indianred                  ctermfg=5
+hi Visual       gui=none  guifg=khaki  guibg=olivedrab  cterm=reverse
+hi VisualNOS    cterm=bold,underline
+hi WarningMsg   guifg=salmon                     ctermfg=1
+hi MatchParen   guibg=grey30     guifg=#dfffdf
+hi Directory    guifg=SkyBlue                    ctermfg=darkcyan
+hi ErrorMsg     guifg=White      guibg=firebrick  cterm=bold  ctermfg=7  ctermbg=1
+hi WildMenu     guifg=black      guibg=khaki      ctermfg=0  ctermbg=3
+hi Ignore       guifg=grey40                      cterm=bold  ctermfg=7
 
-" color terminal definitions
-hi SpecialKey	ctermfg=darkgreen
-hi NonText	cterm=bold ctermfg=darkblue
-hi Directory	ctermfg=darkcyan
-hi ErrorMsg	cterm=bold ctermfg=7 ctermbg=1
-hi IncSearch	cterm=NONE ctermfg=yellow ctermbg=green
-hi Search	cterm=NONE ctermfg=grey ctermbg=blue
-hi MoreMsg	ctermfg=darkgreen
-hi ModeMsg	cterm=NONE ctermfg=brown
-hi LineNr	ctermfg=3
-hi Question	ctermfg=green
-hi StatusLine	cterm=bold,reverse
-hi StatusLineNC cterm=reverse
-hi VertSplit	cterm=reverse
-hi Title	ctermfg=5
-hi Visual	cterm=reverse
-hi VisualNOS	cterm=bold,underline
-hi WarningMsg	ctermfg=1
-hi WildMenu	ctermfg=0 ctermbg=3
-hi Folded	ctermfg=darkgrey ctermbg=NONE
-hi FoldColumn	ctermfg=darkgrey ctermbg=NONE
-hi DiffAdd	ctermbg=4
-hi DiffChange	ctermbg=5
-hi DiffDelete	cterm=bold ctermfg=4 ctermbg=6
-hi DiffText	cterm=bold ctermbg=1
-hi Comment	ctermfg=darkcyan
-hi Constant	ctermfg=brown
-hi Special	ctermfg=5
-hi Identifier	ctermfg=6
-hi Statement	ctermfg=3
-hi PreProc	ctermfg=5
-hi Todo		ctermfg=red ctermbg=NONE
-hi Type		ctermfg=2
-hi Underlined	cterm=underline ctermfg=5
-hi Ignore	cterm=bold ctermfg=7
-hi Ignore	ctermfg=darkgrey
-hi Error	cterm=bold ctermfg=7 ctermbg=1
+" Diff
+hi DiffAdd      guibg=#264d26                    ctermbg=4
+hi DiffChange   guibg=#4d4526                    ctermbg=5
+hi DiffDelete   guifg=grey20  guibg=#4d2626  cterm=bold  ctermfg=4  ctermbg=6
+hi DiffText     guibg=#6d3030  gui=bold  cterm=bold  ctermbg=1
 
+" Popup menu (completion) — did not exist as a themeable group in 2003
+hi Pmenu        guifg=White  guibg=grey30
+hi PmenuSel     guifg=black  guibg=khaki  gui=bold
+hi PmenuSbar    guibg=grey40
+hi PmenuThumb   guibg=grey60
 
-"vim: sw=4
+" Tabline
+hi TabLine      guifg=grey60  guibg=grey30  gui=none
+hi TabLineSel   guifg=White   guibg=grey20  gui=bold
+hi TabLineFill  guibg=grey30
+
+" ---------------------------------------------------------------------------
+" Syntax highlighting groups
+" ---------------------------------------------------------------------------
+hi Comment      guifg=SkyBlue                    ctermfg=darkcyan
+hi Constant     guifg=#ffa0a0                    ctermfg=brown
+hi Identifier   guifg=palegreen                  ctermfg=6
+hi Statement    guifg=khaki      gui=bold         ctermfg=3
+hi PreProc      guifg=indianred                  ctermfg=5
+hi Type         guifg=darkkhaki                  ctermfg=2
+hi Special      guifg=navajowhite                ctermfg=5
+hi Underlined   gui=underline    guifg=indianred  cterm=underline  ctermfg=5
+hi Todo         guifg=orangered  guibg=yellow2    ctermfg=red      ctermbg=NONE
+hi Error        guifg=White      guibg=firebrick  cterm=bold  ctermfg=7  ctermbg=1
+
+" ---------------------------------------------------------------------------
+" Neovim Treesitter groups (fall back gracefully to legacy groups above)
+" ---------------------------------------------------------------------------
+if has('nvim')
+  hi link @variable          Identifier
+  hi link @variable.builtin  Special
+  hi link @function          Statement
+  hi link @function.builtin  Special
+  hi link @function.call     Statement
+  hi link @keyword           Statement
+  hi link @keyword.function  Statement
+  hi link @keyword.return    Statement
+  hi link @conditional       Statement
+  hi link @repeat            Statement
+  hi link @string            Constant
+  hi link @string.escape     Special
+  hi link @number            Constant
+  hi link @boolean           Constant
+  hi link @constant          Constant
+  hi link @constant.builtin  Special
+  hi link @type               Type
+  hi link @type.builtin       Type
+  hi link @property           Identifier
+  hi link @field               Identifier
+  hi link @parameter           Identifier
+  hi link @comment            Comment
+  hi link @punctuation.bracket   Special
+  hi link @punctuation.delimiter Special
+  hi link @operator             Special
+  hi link @tag                  PreProc
+  hi link @tag.attribute        Type
+  hi link @tag.delimiter        Special
+
+  " LSP semantic tokens (Neovim 0.9+)
+  hi link @lsp.type.class      Type
+  hi link @lsp.type.function   Statement
+  hi link @lsp.type.variable   Identifier
+  hi link @lsp.type.parameter  Identifier
+  hi link @lsp.type.property   Identifier
+  hi link @lsp.type.comment    Comment
+
+  " Diagnostics — did not exist in 2003, essential in a modern LSP setup
+  hi DiagnosticError guifg=#ff8080  ctermfg=1
+  hi DiagnosticWarn  guifg=gold     ctermfg=3
+  hi DiagnosticInfo  guifg=SkyBlue  ctermfg=6
+  hi DiagnosticHint  guifg=palegreen ctermfg=2
+  hi DiagnosticUnderlineError gui=underline guisp=#ff8080 cterm=underline
+  hi DiagnosticUnderlineWarn  gui=underline guisp=gold     cterm=underline
+  hi DiagnosticUnderlineInfo  gui=underline guisp=SkyBlue  cterm=underline
+  hi DiagnosticUnderlineHint  gui=underline guisp=palegreen cterm=underline
+
+  " GitSigns / gutter VCS markers (common modern plugin convention)
+  hi link GitSignsAdd    DiffAdd
+  hi link GitSignsChange DiffChange
+  hi link GitSignsDelete DiffDelete
+endif
+
+" vim: sw=2 et
+# desert updat 
