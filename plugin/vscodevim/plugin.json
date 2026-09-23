@@ -1,0 +1,89 @@
+{
+  "workbench.colorTheme": "Light+",
+  "workbench.list.smoothScrolling": true,
+  "editor.smoothScrolling": true,
+  "terminal.integrated.smoothScrolling": true,
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.cursorBlinking": "smooth",
+  "workbench.reduceMotion": "off",
+  "window.titleBarStyle": "custom",
+  "workbench.tree.renderIndentGuides": "always",
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 500,
+  "c-cpp-compile-run.skip-if-compiled": false,
+  "github.copilot.nextEditSuggestions.enabled": false,
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false,
+    "cpp": false
+  },
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "j"],
+      "after": ["<Esc>"]
+    }
+  ],
+  "vim.leader": "<space>",
+  "vim.hlsearch": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
+  "vim.timeout": 300,
+  "vim.easymotion": true,
+  "vim.sneak": true,
+  "vim.surround": true,
+  "vim.smartRelativeLine": true,
+  "vim.startInInsertMode": false,
+  "vim.foldfix": true,
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<leader>", "w"],
+      "commands": [":w"]
+    },
+    {
+      "before": ["<leader>", "q"],
+      "commands": [":q"]
+    },
+    {
+      "before": ["<C-h>"],
+      "commands": [":wincmd h"]
+    },
+    {
+      "before": ["<C-l>"],
+      "commands": [":wincmd l"]
+    },
+    {
+      "before": ["<C-j>"],
+      "commands": [":wincmd j"]
+    },
+    {
+      "before": ["<C-k>"],
+      "commands": [":wincmd k"]
+    }
+  ],
+  "editor.cursorSurroundingLines": 8,
+  "editor.scrollBeyondLastLine": false,
+  "editor.mouseWheelZoom": true,
+  "editor.fontLigatures": true,
+  "editor.fontFamily": "JetBrains Mono, Fira Code, Consolas, monospace",
+  "editor.fontSize": 15,
+  "editor.lineHeight": 24,
+  "editor.renderWhitespace": "selection",
+  "editor.minimap.enabled": false,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true,
+  "editor.wordWrap": "on",
+  "editor.linkedEditing": true,
+  "terminal.integrated.fontFamily": "JetBrains Mono",
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "workbench.startupEditor": "none",
+  "workbench.editor.enablePreview": false,
+  "extensions.autoUpdate": false,
+  "telemetry.telemetryLevel": "off",
+  "update.mode": "none"
+}
